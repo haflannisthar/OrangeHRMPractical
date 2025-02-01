@@ -26,7 +26,6 @@ public class BaseTest {
     protected WebDriver driver;
     protected BasePage basePage;
     protected LoginPage loginPage;
-//    protected Lo
 
 
     @BeforeClass
@@ -49,7 +48,8 @@ public class BaseTest {
     }
 
 
-//    take screen shot of failed tests
+
+//    take screenshot of failed tests
     @AfterMethod
     public void takeFailTestScreenShot(ITestResult testResult){
 //        check the test result status is failure
@@ -83,4 +83,6 @@ public class BaseTest {
         Thread.sleep(2000);
         driver.quit();
     }
+
+
 }

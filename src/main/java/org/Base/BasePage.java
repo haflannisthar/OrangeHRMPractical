@@ -28,7 +28,7 @@ public class BasePage {
     protected void click(By locator){
         find(locator).click();
     }
-
+//find the web element and get the text
     protected String getText(By locator){
        return find(locator).getText();
 

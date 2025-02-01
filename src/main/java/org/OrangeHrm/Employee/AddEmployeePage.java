@@ -33,9 +33,6 @@ public class AddEmployeePage extends EmployeePage {
     private final By employeeAddSuccessVerification = By.xpath("//div[@class='orangehrm-edit-employee-name']");
 
 
-
-
-
     //check whether employee form is present
     public boolean isEmployeeFormPresent() {
         fluentWait(employeeAddForm, 5);
@@ -48,7 +45,7 @@ public class AddEmployeePage extends EmployeePage {
         return find(employeePageVerifyTag).getText();
     }
 
-//    add new employee
+    //    add new employee
     public String newEmployeeAdd(String imagePath, String firstName, String middleName, String lastName, String expiryDate) throws InterruptedException {
 
 //        wait until form load and verify
@@ -69,7 +66,7 @@ public class AddEmployeePage extends EmployeePage {
 
 //        click save button
         click(addNewEmployeeButton);
-        fluentWait(employeeAddSuccessVerification, 20);
+        fluentWait(employeeAddSuccessVerification, 60);
 
 //        add expiry date for license
         clickJS(licenseExpiryDateInput);
@@ -96,12 +93,6 @@ public class AddEmployeePage extends EmployeePage {
         return find(licenseExpiryDateInput).getAttribute("value");
 
     }
-
-
-
-
-
-
 
 
 }

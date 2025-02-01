@@ -7,14 +7,11 @@ import org.OrangeHrm.Employee.EmployeePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.awt.*;
-import java.io.IOException;
-
 public class EmployeeTest extends BaseTest {
 
 
-    //    enter credentials and login then go to Employee page and then check the URL with expected one
-    @Test
+    //  TestCase ID - TC-004 -->  enter credentials and login then go to Employee page and then check the URL with expected one
+    @Test(priority = 1)
     public void EmployeePageTest() {
         DashboardPage dashboardPage = loginPage.loginToApp("admin", "admin123");
         EmployeePage employeePage = dashboardPage.goToEmployeePage();
@@ -24,18 +21,23 @@ public class EmployeeTest extends BaseTest {
 
         Assert.assertEquals(ActualUrl, expectedUrl, "Expected and ActualUrl are not equal");
 
+        dashboardPage.goToLogoutPage().logout();
+
     }
 
-    //go to employee page and click add employee button and then check the employee for is present
-    @Test
+    //TestCase ID - TC-005 -->  go to employee page and click add employee button and then check the employee for is present
+    @Test(priority = 2)
     public void addEmployeePageVerificationTest() {
         DashboardPage dashboardPage = loginPage.loginToApp("admin", "admin123");
         EmployeePage employeePage = dashboardPage.goToEmployeePage();
-        AddEmployeePage addEmployeePage = employeePage.addNewEmployee();
+        AddEmployeePage addEmployeePage = employeePage.goToAddNewEmployee();
 
         String actualResult = addEmployeePage.getEmployeePageHeadText();
         String expectedResult = "Add Employee";
         Assert.assertEquals(actualResult, expectedResult, "Expected and ActualResult are not equal");
+
+        dashboardPage.goToLogoutPage().logout();
+
 
 //boolean actualResult=addEmployeePage.isEmployeeFormPresent();
 //
@@ -43,71 +45,74 @@ public class EmployeeTest extends BaseTest {
 
     }
 
-    //    add new employee
-    @Test
-    public void addNewEmployee() throws InterruptedException {
+    //TestCase ID - TC-006 -->    add new employee
+    @Test(priority = 3)
+    public void addNewEmployeeTest() throws InterruptedException {
         DashboardPage dashboardPage = loginPage.loginToApp("admin", "admin123");
         EmployeePage employeePage = dashboardPage.goToEmployeePage();
-        AddEmployeePage addEmployeePage = employeePage.addNewEmployee();
+        AddEmployeePage addEmployeePage = employeePage.goToAddNewEmployee();
 
-
-//                String imagePath = "C:/Users/Pc/Downloads/testimonial-one-img-1.e88e1b8d.png";
 
         String filePath = "C:\\Users\\Pc\\Downloads\\testimonial-one-img-1.e88e1b8d.png";
 
 
-        String actualResult = addEmployeePage.newEmployeeAdd(filePath, "Sanga", "Wikra", "Silva", "2021-30-01");
+        String actualResult = addEmployeePage.newEmployeeAdd(filePath, "Banuka", "Wikra", "Silva", "2021-13-01");
         System.out.println(actualResult);
-        Assert.assertEquals(actualResult, "2021-30-01", "Expected and ActualResult are not equal");
-    }
+        Assert.assertEquals(actualResult, "2021-13-01", "Expected and ActualResult are not equal");
 
-
-//    check with an employee name that does not exist using search bar
-    @Test
-    public void checkWithWrongEmployeeName() throws InterruptedException {
-        DashboardPage dashboardPage = loginPage.loginToApp("admin", "admin123");
-        EmployeePage employeePage = dashboardPage.goToEmployeePage();
-       boolean actualResult= employeePage.checkWithWrongEmployeeName("Manju");
-
-       Assert.assertTrue(actualResult, "Expected and ActualResult are not equal");
+        dashboardPage.goToLogoutPage().logout();
 
     }
 
 
-
-//    update employee details by passing the details which are needed to be applied
-    @Test
-    public void employeeDetailsUpdate()throws InterruptedException {
+    //  TestCase ID - TC-007 -->  update employee details by passing the details which are needed to be applied
+//    @Test(dependsOnMethods = "addNewEmployeeTest")
+    @Test(dependsOnMethods = "addNewEmployeeTest")
+    public void employeeDetailsUpdateTest() throws InterruptedException {
         DashboardPage dashboardPage = loginPage.loginToApp("admin", "admin123");
         EmployeePage employeePage = dashboardPage.goToEmployeePage();
 
-        String attachmentFilePath="C:\\Users\\Pc\\Downloads\\Self-Evaluation-Sheet-2024-1.pdf";
-        String comment="self evaluation form";
+        String attachmentFilePath = "C:\\Users\\Pc\\Downloads\\Self-Evaluation-Sheet-2024-1.pdf";
+        String comment = "self evaluation form";
+        String firstName = "Banuka";
 
-        String actualResult=employeePage.updateEmployee("Amelia","asddj2001","Sri Lankan","2001-16-10",attachmentFilePath,comment);
+        String actualResult = employeePage.goToUpdateEmployee(firstName).updateEmployee("asddj2001", "Sri Lankan", "2001-16-10", attachmentFilePath, comment);
 
         Assert.assertEquals(actualResult, comment, "Expected and ActualResult are not equal");
 
+
+        dashboardPage.goToLogoutPage().logout();
+
     }
 
+    // TestCase ID - TC-008 -->  delete an employee by searching employee id
+//    (dependsOnMethods = "employeeDetailsUpdateTest")
     @Test
-    public void employeeDetailsDelete()throws InterruptedException {
+    public void employeeDetailsDeleteTest() throws InterruptedException {
         DashboardPage dashboardPage = loginPage.loginToApp("admin", "admin123");
         EmployeePage employeePage = dashboardPage.goToEmployeePage();
-       boolean actualResult=employeePage.deleteEmployee("1235");
-       Assert.assertTrue(actualResult, "Expected and ActualResult are not equal");
+        boolean actualResult = employeePage.deleteEmployee("0315");
+        Assert.assertTrue(actualResult, "Expected and ActualResult are not equal");
+
+
+        dashboardPage.goToLogoutPage().logout();
 
     }
 
-    @Test
-    public void selectFromDropDown() throws IOException, InterruptedException {
+
+    //   TestCase ID - TC-009 --> check with an employee name that does not exist using search bar
+    @Test(dependsOnMethods = "employeeDetailsUpdateTest")
+    public void checkWithWrongEmployeeNameTest() throws InterruptedException {
         DashboardPage dashboardPage = loginPage.loginToApp("admin", "admin123");
         EmployeePage employeePage = dashboardPage.goToEmployeePage();
-        employeePage.selectEmploymentStatus("Full-Time Permanent");
-        employeePage.selectEmploymentStatus("Full-Time Contract");
-        employeePage.selectEmploymentStatus("Freelance");
-        employeePage.selectEmploymentStatus("Full-Time Probation");
-        employeePage.selectEmploymentStatus("Part-Time Contract");
+        boolean actualResult = employeePage.checkWithWrongEmployeeName("Dilscoop");
+
+        Assert.assertTrue(actualResult, "Expected and ActualResult are not equal");
+
+
+        dashboardPage.goToLogoutPage().logout();
+
     }
+
 
 }
