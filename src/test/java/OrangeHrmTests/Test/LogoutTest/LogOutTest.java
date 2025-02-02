@@ -2,6 +2,7 @@ package OrangeHrmTests.Test.LogoutTest;
 
 import OrangeHrmTests.Base.BaseTest;
 import org.OrangeHrm.DashboardPage;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class LogOutTest extends BaseTest {
@@ -12,6 +13,9 @@ public class LogOutTest extends BaseTest {
     public void testLogOut() {
         DashboardPage dashboard= loginPage.loginToApp("admin", "admin123");
 
-        dashboard.goToLogoutPage().logout();
+       String actualURL= dashboard.goToLogoutPage().logout();
+       String expectedUrl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+
+       Assert.assertEquals(actualURL,expectedUrl,"Actual URL and Expected URL don't match");
     }
 }

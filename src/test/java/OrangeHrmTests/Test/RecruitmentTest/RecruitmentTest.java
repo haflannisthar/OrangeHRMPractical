@@ -48,10 +48,5 @@ public class RecruitmentTest extends BaseTest {
      dashboardPage.goToLogoutPage().logout();
     }
 
-//    @Test
-//    public void updateDateFieldValue() throws InterruptedException {
-//        DashboardPage dashboardPage= loginPage.loginToApp("admin","admin123");
-//       String actualDate=dashboardPage.goToRecruitmentPage().goToAddCandidatePage().clearDateFieldAndAssignNewDate("2024-16-10");
-//       Assert.assertEquals(actualDate,"2024-16-10","Actual date did not match");
-//    }
+
 }

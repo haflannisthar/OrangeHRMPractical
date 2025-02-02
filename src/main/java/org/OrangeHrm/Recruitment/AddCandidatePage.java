@@ -28,9 +28,14 @@ public class AddCandidatePage extends RecruitmentPage {
     private final By invalidEmailErrorField = By.xpath("//span[text()='Expected format: admin@example.com']");
 
     private final By candidateAddSuccessValidationField = By.xpath("//h6[text()='Candidate Profile']");
+private final By candidateShortListButton =By.xpath("//button[contains(@class, 'oxd-button--success')]");
+//private final By saveShortListedCandidateButton=By.xpath("//button[contains(@class, 'oxd-button--secondary')]");
+//private final By interviewTitleField=By.xpath("//label[text()='Interview Title']/parent::div/following-sibling::div/input");
+//private final By interviewDateField=By.xpath("//label[text()='Date']/parent::div/following-sibling::div//input");
+//private final By interviewFailedButton=By.xpath("//button[normalize-space()='Mark Interview Failed']");
+//private final By interviewFailedValidationText=By.xpath("//p[text()='Status: Interview Failed']");
 
-
-    public String clearDateFieldAndAssignNewDate(String dateOfApplication) throws InterruptedException {
+public String clearDateFieldAndAssignNewDate(String dateOfApplication) throws InterruptedException {
         fluentWait(dateOfApplicationField, 20);
         scrollToElementJs(dateOfApplicationField);
         clickJS(dateOfApplicationField);
@@ -124,7 +129,9 @@ public class AddCandidatePage extends RecruitmentPage {
         scrollToElementJs(candidateSaveButtonField);
         click(candidateSaveButtonField);
 
-        fluentWait(candidateAddSuccessValidationField, 20);
+        fluentWait(candidateShortListButton, 60);
+        click(candidateShortListButton);
+
         return find(candidateAddSuccessValidationField).isDisplayed();
 
     }

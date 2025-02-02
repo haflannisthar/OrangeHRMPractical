@@ -65,7 +65,7 @@ public class EmployeeTest extends BaseTest {
     }
 
 
-    //  TestCase ID - TC-007 -->  update employee details by passing the details which are needed to be applied
+    //  TestCase ID - TC-008 -->  update employee details by passing the details which are needed to be applied
 //    @Test(dependsOnMethods = "addNewEmployeeTest")
     @Test(dependsOnMethods = "addNewEmployeeTest")
     public void employeeDetailsUpdateTest() throws InterruptedException {
@@ -85,7 +85,7 @@ public class EmployeeTest extends BaseTest {
 
     }
 
-    // TestCase ID - TC-008 -->  delete an employee by searching employee id
+    // TestCase ID - TC-009 -->  delete an employee by searching employee id
 //    (dependsOnMethods = "employeeDetailsUpdateTest")
     @Test
     public void employeeDetailsDeleteTest() throws InterruptedException {
@@ -100,7 +100,7 @@ public class EmployeeTest extends BaseTest {
     }
 
 
-    //   TestCase ID - TC-009 --> check with an employee name that does not exist using search bar
+    //   TestCase ID - TC-007 --> check with an employee name that does not exist using search bar
     @Test(dependsOnMethods = "employeeDetailsUpdateTest")
     public void checkWithWrongEmployeeNameTest() throws InterruptedException {
         DashboardPage dashboardPage = loginPage.loginToApp("admin", "admin123");

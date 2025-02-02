@@ -9,8 +9,10 @@ public class LogoutPage extends DashboardPage{
     private final By logoutButton=By.xpath("//li/a[text()='Logout']");
 
 //click on logout page
-    public void logout(){
+    public String logout(){
         fluentWait(logoutButton,10);
         find(logoutButton).click();
+     return   driver.getCurrentUrl();
+
     }
 }
